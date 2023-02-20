@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahtzee Game</title>
+    <link rel="stylesheet" href="final.css">
+    <!-- link for the jQuery UI stuff -->
+    <link rel="UIstylesheet" href="jquery-ui-1.13.1.custom/jquery-ui.theme.css">
+</head>
+<body>
+  <header>
+   <h1>Yahtzee</h1>
+  </header>
+    <main>
+            <table id="scoreboard">
+               <tr id="tableCaption">
+                   <th class= "caption" id="scoretype">Score Types</th>
+                   <td class= "caption" id="p1">P1</td>
+                   <td class= "caption" id="p2">P2</td>
+               </tr>
+                <tr id="ones">
+                    <th>Ones</th>
+                    <td id="onesScore" class = "boxes"></td>
+                    <td id="onesScore2" class = "boxes"></td>
+                </tr>
+                <tr id="twos">
+                    <th>Twos</th>
+                    <td id="twosScore" class = "boxes"></td>
+                    <td id="twosScore2" class = "boxes"></td>
+                </tr>
+                <tr id="threes">
+                    <th>Threes</th>
+                    <td id="threesScore" class = "boxes"></td>
+                    <td id="threesScore2" class = "boxes"></td>
+                </tr>
+                <tr id="fours">
+                    <th>Fours</th>
+                    <td id="foursScore" class = "boxes"></td>
+                    <td id="foursScore2" class = "boxes"></td>
+                </tr>
+                <tr id="fives">
+                    <th>Fives</th>
+                    <td id="fivesScore" class = "boxes"></td>
+                    <td id="fivesScore2" class = "boxes"></td>
+                </tr>
+                <tr id="sixes">
+                    <th>Sixes</th>
+                    <td id="sixesScore" class = "boxes"></td>
+                    <td id="sixesScore2" class = "boxes"></td>
+                </tr>
+                <tr id="three-of-a-kind">
+                    <th>Three of a kind</th>
+                    <td id="threeKindScore" class = "boxes"></td>
+                    <td id="threeKindScore2" class = "boxes"></td>
+                </tr>
+                <tr id="four-of-a-kind">
+                    <th>Four of a kind</th>
+                    <td id="fourKindScore" class = "boxes"></td>
+                    <td id="fourKindScore2" class = "boxes"></td>
+                </tr>
+                <tr id="full-house">
+                    <th>Full House</th>
+                    <td id="fullScore" class = "boxes"></td>
+                    <td id="fullScore2" class = "boxes"></td>
+                </tr>
+                <tr id="small-straight">
+                    <th>Small straight</th>
+                    <td id="smallScore" class = "boxes"></td>
+                    <td id="smallScore2" class = "boxes"></td>
+                </tr>
+                <tr id="large-straight">
+                    <th>Large straight</th>
+                    <td id="largeScore" class = "boxes"></td>
+                    <td id="largeScore2" class = "boxes"></td>
+                </tr>
+                <tr id="chance">
+                    <th>Chance</th>
+                    <td id="chanceScore" class = "boxes"></td>
+                    <td id="chanceScore2" class = "boxes"></td>
+                </tr>
+                <tr id="yahtzee">
+                    <th>Yahtzee</th>
+                    <td id="yahtzeeScore" class = "boxes"></td>
+                    <td id="yahtzeeScore2" class = "boxes"></td>
+                </tr>
+                <tr id="score">
+                    <th>SCORE</th>
+                    <td id="finalScore"></td>
+                    <td id="finalScore2"></td>
+                </tr>
+            </table>
+        <section>
+            <input type="button" id="roll" value="Roll">
+            <!--<input type="button" id="next" value ="Next Turn">-->
+            <div id= "errMsg"></div>
+            <div id="count" class="hide"><span id="current"></span>'s turn</div>
+            
+        <div id="startingImages">    
+        <img id = "dice1" class = "dices" src= images/dice0.png width = "50" height = "50"> 
+        <img id = "dice2" class = "dices" src= images/dice0.png width = "50" height = "50">   
+        <img id = "dice3" class = "dices" src= images/dice0.png width = "50" height = "50">  
+        <img id = "dice4" class = "dices" src= images/dice0.png width = "50" height = "50">  
+        <img id = "dice5" class = "dices" src= images/dice0.png width = "50" height = "50">  
+        <!-- <img id = "dice6" src= images/dice6.png width = "50" height = "50"> 5 dice in yahtzee -->
+        </div>
+        <div id="diceValues">
+            <input type="text" id="score1" class = "scorebox" value="0" disabled>
+            <input type="text" id="score2" class = "scorebox" value="0" disabled>
+            <input type="text" id="score3" class = "scorebox" value="0" disabled>
+            <input type="text" id="score4" class = "scorebox" value="0" disabled>
+            <input type="text" id="score5" class = "scorebox" value="0" disabled>
+        </div>
+    <div id = "radios">   
+    <input type="radio" name="Players" value="1" checked>Players: 1
+    <input type="radio" name="Players" value="2">Players: 2
+    <input type="button" id="newGame" value="New Game">
+    </div>
+    <div id="winner"></div>
+       
+       
+    <div id="accordion">
+  <h3>Rules of Yahtzee</h3>
+  <div>
+    <p>
+    Players have five die, and can roll the a total of 3 times per turn. During their rolls, they can keep the dice they want. Players want to aim for different scoring situation. A "Yahtzee" means all dice match, netting the player 50 points. A "chance" will just add up the total sum of the dice, being used as a last resort if no other scoring situations occur. The straights can be scored when the dice count up from one another (i.e. 1, 2, 3, 4, 5 OR 2, 3, 4, 5, 6). Full house occurs when you have three matchin dice numbers alongside the other two dice being matches. Three-of-a-kind and four-of-a-kind are scored when you have three or four of the same dice respectively. Finally, scoring options 1-6 count up the die numbers that correspond with the selected option.
+    </p>
+  </div>
+  <h3>Using this Application</h3>
+  <div>
+    <p>
+    At the start, please select the player amount. This application defaults to one player if nothing is selected. After rolling using the "roll" button, you may click on the dice to lock them. Once you have done three rolls, or if you have a desired set of die, save the score by clicking on the name of the desired scoring style (rules above). <!--In order to go to the next turn, simply click the "Next Turn" button.--> After saving your score, the game automatically goes to the next turn. If playing with two players, it will be the next player's turn. In two player mode, indication of this appears underneath the roll button, as well as "P1" or "P2" being highlighted.
+    </p>
+  </div>
+</div>
+        </section>
+           
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"></script>
+      <script src="jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
+  
+	<script src="final.js"></script>
+</body>
+
+</html>
